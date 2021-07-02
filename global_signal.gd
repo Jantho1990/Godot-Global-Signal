@@ -9,13 +9,13 @@ var _emit_queue = []
 # Keeps track of what listeners have been registered.
 var _listeners = {}
 
-# Is false until after _ready() has been run.
-var _ready = false
+# Is false until after _gs_ready() has been run.
+var _gs_ready = false
 
 
 # We only run this once, to process the _emit_queue. We disable processing afterwards.
 func _process(_delta):
-  if not _ready:
+  if not _gs_ready:
     _make_ready()
     set_process(false)
     set_physics_process(false)
@@ -41,7 +41,7 @@ func _connect_listener_to_emitters(signal_name: String, listener: Object, method
 
 # Execute the ready process and initiate processing the emit queue.
 func _make_ready() -> void:
-  _ready = true
+  _gs_ready = true
   _process_emit_queue()
 
 
@@ -76,13 +76,13 @@ func add_listener(signal_name: String, listener: Object, method: String) -> void
 
 
 # A variant of emit_signal that defers emitting the signal until the first physics process step.
-# Useful when you want to emit a global signal during a _ready function and guarantee the emitter and listener are ready.
+# Useful when you want to emit a global signal during a _gs_ready function and guarantee the emitter and listener are ready.
 func emit_signal_when_ready(signal_name: String, args: Array, emitter: Object) -> void:
   if not _emitters.has(signal_name):
     push_error('GlobalSignal.emit_signal_when_ready: Signal is not registered with GlobalSignal (' + signal_name + ').')
     return
   
-  if not _ready:
+  if not _gs_ready:
     _emit_queue.push_back({ 'signal_name': signal_name, 'args': args, 'emitter': emitter })
   else:
     # GlobalSignal is ready, so just call emit_signal with the provided args.
