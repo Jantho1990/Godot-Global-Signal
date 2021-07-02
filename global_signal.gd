@@ -9,7 +9,7 @@ var _emit_queue = []
 # Keeps track of what listeners have been registered.
 var _listeners = {}
 
-# Is false until after _gs_ready() has been run.
+# Is false until after _ready() has been run.
 var _gs_ready = false
 
 
