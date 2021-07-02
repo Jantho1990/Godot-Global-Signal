@@ -75,7 +75,7 @@ func add_listener(signal_name: String, listener: Object, method: String) -> void
     _connect_listener_to_emitters(signal_name, listener, method)
 
 
-# A variant of emit_signal that defers emitting the signal until the first physics process step.
+# A variant of emit_signal that defers emitting the signal until the first process step.
 # Useful when you want to emit a global signal during a _gs_ready function and guarantee the emitter and listener are ready.
 func emit_signal_when_ready(signal_name: String, args: Array, emitter: Object) -> void:
   if not _emitters.has(signal_name):
