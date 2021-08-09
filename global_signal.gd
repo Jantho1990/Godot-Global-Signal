@@ -30,7 +30,7 @@ func _connect_emitter_to_listeners(signal_name: String, emitter: Object) -> void
     emitter.connect(signal_name, listener.object, listener.method)
 
 
-# Connect a listener to emitters who emit the signal its listening for.
+# Connect a listener to emitters who emit the signal it's listening for.
 func _connect_listener_to_emitters(signal_name: String, listener: Object, method: String) -> void:
   var emitters = _emitters[signal_name]
   for emitter in emitters.values():
