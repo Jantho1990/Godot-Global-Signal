@@ -7,7 +7,7 @@ signal text_updated(text_value)
 func _ready():
   GlobalSignal.add_emitter('text_updated', self)
   GlobalSignal.emit_signal_when_ready('text_updated', ['text in _ready()'], self)
-  connect('text_changed', self, '_on_Text_changed')
+  connect('text_changed',Callable(self,'_on_Text_changed'))
 
 
 func _on_Text_changed(_value):

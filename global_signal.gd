@@ -27,7 +27,7 @@ func _connect_emitter_to_listeners(signal_name: String, emitter: Object) -> void
   for listener in listeners.values():
     if _process_purge(listener, listeners):
       continue
-    emitter.connect(signal_name, listener.object, listener.method)
+    emitter.connect(signal_name,Callable(listener.object,listener.method))
 
 
 # Connect a listener to emitters who emit the signal it's listening for.
@@ -36,7 +36,7 @@ func _connect_listener_to_emitters(signal_name: String, listener: Object, method
   for emitter in emitters.values():
     if _process_purge(emitter, emitters):
       continue
-    emitter.object.connect(signal_name, listener, method)
+    emitter.object.connect(signal_name,Callable(listener,method))
 
 
 # Execute the ready process and initiate processing the emit queue.
@@ -112,20 +112,20 @@ func remove_emitter(signal_name: String, emitter: Object) -> void:
     for listener in _listeners[signal_name].values():
       if _process_purge(listener, _listeners[signal_name]):
         continue
-      if emitter.is_connected(signal_name, listener.object, listener.method):
-        emitter.disconnect(signal_name, listener.object, listener.method)
+      if emitter.is_connected(signal_name,Callable(listener.object,listener.method)):
+        emitter.disconnect(signal_name,Callable(listener.object,listener.method))
 
 
 # Remove registered listener and disconnect it from any emitters it was listening to.
 func remove_listener(signal_name: String, listener: Object, method: String) -> void:
   if not _listeners.has(signal_name): return
   if not _listeners[signal_name].has(listener.get_instance_id()): return  
-    
+   
   _listeners[signal_name].erase(listener.get_instance_id())
-    
+   
   if _emitters.has(signal_name):
-    for emitter in _emitters[signal_name].values():
-      if _process_purge(emitter, _emitters[signal_name]):
-        continue
-      if emitter.object.is_connected(signal_name, listener, method):
-        emitter.object.disconnect(signal_name, listener, method)
+   for emitter in _emitters[signal_name].values():
+     if _process_purge(emitter, _emitters[signal_name]):
+      continue
+     if emitter.object.is_connected(signal_name,Callable(listener,method)):
+      emitter.object.disconnect(signal_name,Callable(listener,method))

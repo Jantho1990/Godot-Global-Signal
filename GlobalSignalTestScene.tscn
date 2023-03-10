@@ -1,42 +1,30 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://7qssxk5jwosn"]
 
-[ext_resource path="res://TestTextEdit.gd" type="Script" id=1]
-[ext_resource path="res://TestLabel.gd" type="Script" id=2]
+[ext_resource type="Script" path="res://TestTextEdit.gd" id="1"]
+[ext_resource type="Script" path="res://TestLabel.gd" id="2"]
 
 [node name="GlobalSignalTestScene" type="Node"]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
-margin_right = 1024.0
-margin_bottom = 600.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
-margin_left = 473.0
-margin_top = 279.0
-margin_right = 550.0
-margin_bottom = 321.0
+layout_mode = 2
 
 [node name="TestTextEdit" type="LineEdit" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_right = 77.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 text = "Sample"
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="TestLabel" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_top = 28.0
-margin_right = 77.0
-margin_bottom = 42.0
+layout_mode = 2
 text = "Default Text"
-script = ExtResource( 2 )
+script = ExtResource("2")
