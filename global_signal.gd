@@ -112,8 +112,8 @@ func remove_emitter(signal_name: String, emitter: Object) -> void:
     for listener in _listeners[signal_name].values():
       if _process_purge(listener, _listeners[signal_name]):
         continue
-      if emitter.is_connected(signal_name, listener.object, listener.method):
-        emitter.disconnect(signal_name, listener.object, listener.method)
+      if emitter.is_connected(signal_name, listener.method):
+        emitter.disconnect(signal_name, listener.method)
 
 
 # Remove registered listener and disconnect it from any emitters it was listening to.
